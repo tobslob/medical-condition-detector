@@ -1,64 +1,78 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import { colors } from "../colors";
-import img from "../assets/images/img.png";
+import { Image, StyleSheet, Text, View } from 'react-native';
+import Video from 'react-native-video';
+import img from '../assets/images/img.png';
+import { colors } from '../colors';
 
 type MedicalReportType = {
-    hasImage?: boolean
-}
+  hasVideo: boolean;
+  result: {
+    playback_url: string;
+    action_label: string;
+  };
+};
 
-function MedicalReport({hasImage}: MedicalReportType) {
+function MedicalReport({ hasVideo, result }: MedicalReportType) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        View Medical Report
-      </Text>
+      <Text style={styles.title}>View Medical Report</Text>
 
       <View style={styles.imageContainer}>
-        <View style={styles.noReport}>
-          <Image source={img} style={styles.noImage} />
-        </View>
+        {hasVideo ? (
+          <Video
+            source={{ uri: result?.playback_url }}
+            controls
+            resizeMode="contain"
+            style={styles.backgroundVideo}
+          />
+        ) : (
+          <View style={styles.noReport}>
+            <Image source={img} style={styles.noImage} />
+          </View>
+        )}
       </View>
+      <Text style={styles.action}>{result?.action_label}</Text>
     </View>
   );
 }
 
 export { MedicalReport };
 
-
 const styles = StyleSheet.create({
   container: {
-    // borderRadius: 12,
-    // backgroundColor: colors["btn-background"],
-    // paddingHorizontal: 24,
-    // paddingVertical: 12,
-    // alignItems: "center",
-    justifyContent: "center",
+    justifyContent: 'center',
   },
-  // "text-[#071939] font-semibold text-xs font-[Roboto] text-left"
   title: {
-    color: colors["primary-100"],
-    fontWeight: "500",
+    color: colors['primary-100'],
+    fontWeight: '500',
     fontSize: 12,
-    fontFamily: "Roboto",
-    textAlign: "left",
+    fontFamily: 'Roboto',
+    textAlign: 'left',
   },
-  // className="items-center justify-center mt-[14px] "
+  action: {
+    color: colors['black'],
+    fontWeight: '900',
+    fontSize: 12,
+    fontFamily: 'Roboto',
+    textAlign: 'center',
+  },
   imageContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 14,
   },
-  // className="border-[0.5px] border-[#0000003b] py-[37px] px-[20px]"
   noReport: {
     borderWidth: 0.5,
     borderColor: colors.black,
-    opacity:0.2,
+    opacity: 0.2,
     paddingVertical: 37,
     paddingHorizontal: 20,
   },
-  // className="w-[103px] h-[100px]"
   noImage: {
     width: 103,
-    height: 100
+    height: 100,
+  },
+  backgroundVideo: {
+    width: '100%',
+    height: 180,
   },
 });

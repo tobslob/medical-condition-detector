@@ -1,10 +1,10 @@
-import { GestureResponderEvent, Pressable, StyleSheet, Text } from "react-native";
-import { colors } from "../colors";
+import { GestureResponderEvent, Pressable, StyleSheet, Text } from 'react-native';
+import { colors } from '../colors';
 
 type ButtonType = {
   label: string;
   onPress?: (event: GestureResponderEvent) => void;
-}
+};
 
 function Button({ label, onPress }: ButtonType) {
   return (
@@ -23,17 +23,17 @@ export { Button };
 const styles = StyleSheet.create({
   container: {
     borderRadius: 12,
-    backgroundColor: colors["btn-background"],
+    backgroundColor: colors['btn-background'],
     paddingHorizontal: 24,
     paddingVertical: 12,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     color: colors.white,
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: "500",
-    fontFamily: "Raleway",
+    fontWeight: '500',
+    fontFamily: 'Raleway',
   },
 });

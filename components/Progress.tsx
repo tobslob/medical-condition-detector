@@ -1,40 +1,44 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import checkDone from "../assets/images/check-done.png";
-import check from "../assets/images/check.png";
-import progress from "../assets/images/progress.png";
-import { colors } from "../colors";
+import { Image, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import checkDone from '../assets/images/check-done.png';
+import check from '../assets/images/check.png';
+import progress from '../assets/images/progress.png';
+import { colors } from '../colors';
 
 type ProgressType = {
-    count: number,
-    loading: boolean
-}
+  count: number;
+  loading: boolean;
+  hasVideo: boolean;
+};
 
-function Progress({ count, loading }: ProgressType) {
+function Progress({ count, loading, hasVideo }: ProgressType) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Image source={progress} style={[styles.progress, { width: `${count}%` }]} />
 
-        <Text style={[styles.text, { width: `${count}%` }]}>{count > 14 ? `${count}%` : ""}</Text>
+        <Text style={[styles.text, { width: `${count}%` }]}>{count > 14 ? `${count}%` : ''}</Text>
       </View>
 
-      <Image source={count > 0 && loading ? checkDone : check} style={styles.check} />
+      {hasVideo ? (
+        <Image source={count > 0 && loading ? checkDone : check} style={styles.check} />
+      ) : (
+        <ActivityIndicator />
+      )}
     </View>
   );
 }
 
 export { Progress };
 
-
 const styles = StyleSheet.create({
   // mb-11 flex-row items-center justify-center gap-[1px] border border-red-500 w-full
   container: {
     marginBottom: 44,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 3,
-    width: "100%",
+    width: '100%',
     // borderRadius: 12,
     // backgroundColor: colors["btn-background"],
     // paddingHorizontal: 24,
@@ -43,19 +47,19 @@ const styles = StyleSheet.create({
   },
   // className="relative border border-red-500 w-1/2 h-[18px] items-start rounded overflow-hidden"
   content: {
-    position: "relative",
-    width: "70%",
+    position: 'relative',
+    width: '70%',
     height: 18,
     //   alignItems: "center",
-    justifyContent: "center",
+    justifyContent: 'center',
 
     borderRadius: 4,
-    overflow: "hidden",
-    backgroundColor: colors["progress-background"],
+    overflow: 'hidden',
+    backgroundColor: colors['progress-background'],
   },
-  // className="w-full h-[18px]" 
+  // className="w-full h-[18px]"
   progress: {
-    width: "100%",
+    width: '100%',
     height: 18,
   },
   //  className="text-xs text-red-500 absolute"
@@ -64,15 +68,15 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: -0.154,
     // lineHeight: 21,
-    fontWeight: "500",
-    fontFamily: "DMSans",
-    position: "absolute",
+    fontWeight: '500',
+    fontFamily: 'DMSans',
+    position: 'absolute',
     //   width: '100%',
-    textAlign: "center",
+    textAlign: 'center',
   },
   //   className="w-[15px] h-[15px] border border-red-500"
   check: {
     width: 15,
-    height: 15
-  }
+    height: 15,
+  },
 });
